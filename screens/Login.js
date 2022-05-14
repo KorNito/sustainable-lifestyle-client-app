@@ -8,16 +8,13 @@ import {
   TextInput,
   Button,
   TouchableOpacity,
-  Alert,
 } from "react-native";
 
 export default function App() {
   const [Username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
-  const gotoDashboard = () => {
-    Alert.alert("Login");
-  };
+  const gotoDashboard = () => {};
 
   return (
     <View style={styles.container}>
@@ -41,7 +38,7 @@ export default function App() {
         />
       </View>
 
-      <TouchableOpacity onPress={gotoDashboard}>
+      <TouchableOpacity>
         <Text style={styles.forgot_button}>Forgot Password?</Text>
       </TouchableOpacity>
 
