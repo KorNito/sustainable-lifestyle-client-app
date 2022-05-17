@@ -11,12 +11,12 @@ import {
   Alert,
 } from "react-native";
 
-export default function App() {
+export default function App({ navigation }) {
   const [Username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
   const gotoDashboard = () => {
-    Alert.alert("Login");
+    navigation.navigate("Dashboard");
   };
 
   return (
