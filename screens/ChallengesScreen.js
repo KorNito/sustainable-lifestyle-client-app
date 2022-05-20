@@ -52,7 +52,7 @@ export default function ChallengesScreen({ navigation }) {
             {showQrCode && selectedChallenge == item.challengeName ? (
               <>
                 <Button title="Close" onPress={closedQrCode}></Button>
-                <QRCode value={item.data}></QRCode>
+                <QRCode value={`hPmRb3qLwyQWBdHhum8W ${item.points}`}></QRCode>
               </>
             ) : (
               <Button
