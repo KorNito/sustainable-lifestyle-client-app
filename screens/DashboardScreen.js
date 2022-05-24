@@ -30,11 +30,11 @@ const DashboardScreen = ({ navigation }) => {
             } else if (routeName === "Challenges") {
               iconName = focused ? "list" : "list-outline";
             } else if (routeName === "Rewards") {
-              iconName = focused ? "settings" : "settings-outline";
+              iconName = focused ? "list" : "list-outline";
             } else if (routeName === "Map") {
-              iconName = focused ? "settings" : "settings-outline";
+              iconName = focused ? "map" : "map-outline";
             } else if (routeName === "Ratings") {
-              iconName = focused ? "settings" : "settings-outline";
+              iconName = focused ? "star" : "star-outline";
             }
 
             return <Ionicons name={iconName} size={size} color={color} />;
