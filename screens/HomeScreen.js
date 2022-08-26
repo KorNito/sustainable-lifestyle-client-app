@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { View, Text } from "react-native";
 import { db } from "../firebase";
 import {
@@ -10,10 +10,12 @@ import {
   doc,
   getDoc,
 } from "firebase/firestore";
+import { UserContext } from "../context/UserContext";
 
 export default function HomeScreen({ navigation }) {
   const [points, setPoints] = useState();
-  const userPointsRef = doc(db, "users", "hPmRb3qLwyQWBdHhum8W");
+
+  const { currentUser, setCurrentUser } = useContext(UserContext);
 
   useEffect(() => {
     getUserPoints();
@@ -33,10 +35,6 @@ export default function HomeScreen({ navigation }) {
       .catch((error) => {
         alert(error.message);
       });
-
-    // const data = await getDoc(userPointsRef);
-
-    // setChallenges(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
   };
 
   return (

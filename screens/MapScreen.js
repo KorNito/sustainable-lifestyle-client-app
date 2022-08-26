@@ -1,8 +1,32 @@
-import * as React from "react";
+import { useState, useEffect } from "react";
 import { View, StyleSheet } from "react-native";
 import MapView from "react-native-maps";
+import { db } from "../firebase";
+import {
+  collection,
+  getDocs,
+  addDoc,
+  updateDoc,
+  deleteDoc,
+  doc,
+  getDoc,
+  ref,
+} from "firebase/firestore";
 
 export default function MapScreen({ navigation }) {
+  const [places, setPlaces] = useState([]);
+  const placesRef = collection(db, "places");
+
+  useEffect(() => {
+    getPlaces();
+  }, []);
+
+  const getPlaces = async () => {
+    const data = await getDocs(placesRef);
+
+    setPlaces(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+  };
+
   return (
     <MapView
       style={styles.map}
@@ -13,14 +37,15 @@ export default function MapScreen({ navigation }) {
         longitudeDelta: 0.0421,
       }}
     >
-      <MapView.Marker
-        coordinate={{
-          latitude: 54.72339314409896,
-          longitude: 25.337868064009417,
-        }}
-        title={"title"}
-        description={"description"}
-      />
+      {places.map((place) => (
+        <MapView.Marker
+          coordinate={{
+            latitude: parseFloat(place.latitude),
+            longitude: parseFloat(place.longitude),
+          }}
+          title={place.placeName}
+        />
+      ))}
     </MapView>
   );
 }

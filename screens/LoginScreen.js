@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import {
   StyleSheet,
   Text,
@@ -10,13 +10,16 @@ import {
   TouchableOpacity,
   Alert,
 } from "react-native";
+import { UserContext } from "../context/UserContext";
 
 export default function App({ navigation }) {
   const [Username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
-  const gotoDashboard = () => {
-    navigation.navigate("Dashboard");
+  const { currentUser, setCurrentUser } = useContext(UserContext);
+
+  const login = () => {
+    setCurrentUser(Username);
   };
 
   return (
@@ -45,7 +48,7 @@ export default function App({ navigation }) {
         <Text style={styles.forgot_button}>Forgot Password?</Text>
       </TouchableOpacity>
 
-      <TouchableOpacity style={styles.loginBtn} onPress={gotoDashboard}>
+      <TouchableOpacity style={styles.loginBtn} onPress={login}>
         <Text style={styles.loginText}>LOGIN</Text>
       </TouchableOpacity>
     </View>

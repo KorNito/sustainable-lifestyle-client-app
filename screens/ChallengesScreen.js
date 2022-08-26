@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { View, Text, FlatList, StyleSheet, Button } from "react-native";
 import { db } from "../firebase";
 import {
@@ -12,12 +12,15 @@ import {
   ref,
 } from "firebase/firestore";
 import QRCode from "react-native-qrcode-svg";
+import { UserContext } from "../context/UserContext";
 
 export default function ChallengesScreen({ navigation }) {
   const [challenges, setChallenges] = useState([]);
   const [showQrCode, setShowQrCode] = useState(false);
   const [selectedChallenge, setSelectedChallenge] = useState();
   const challengesRef = collection(db, "challenges");
+
+  const { currentUser, setCurrentUser } = useContext(UserContext);
 
   useEffect(() => {
     getChallenges();
@@ -34,7 +37,7 @@ export default function ChallengesScreen({ navigation }) {
     setShowQrCode(!showQrCode);
   };
 
-  const closedQrCode = () => {
+  const closeQrCode = () => {
     setSelectedChallenge();
     setShowQrCode(!showQrCode);
   };
@@ -51,8 +54,8 @@ export default function ChallengesScreen({ navigation }) {
             <Text>End date: {item.endDate}</Text>
             {showQrCode && selectedChallenge == item.challengeName ? (
               <>
-                <Button title="Close" onPress={closedQrCode}></Button>
-                <QRCode value={`hPmRb3qLwyQWBdHhum8W ${item.points}`}></QRCode>
+                <Button title="Close" onPress={closeQrCode}></Button>
+                <QRCode value={`${currentUser} ${item.points}`}></QRCode>
               </>
             ) : (
               <Button
